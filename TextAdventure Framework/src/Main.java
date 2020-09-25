@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,7 +8,7 @@ public class Main {
         Random rand =  new Random();
 
         //Game Variables
-        String[] enemies =  {"Skeleton"};
+        String[] enemies =  {"Skeleton","Minotaur","Zombie","Spider"};
         int maxEnemyHealth = 100;
         int maxEnemyAttachDamage = 25;
 
@@ -24,7 +23,9 @@ public class Main {
             System.out.println("--------------------------------------------------------------------");
 
             int enemyHealth = rand.nextInt(maxEnemyHealth);
-            String enemy = enemies[0];//we only have one enemy here. You can add more and use random choose one.
+            Random randEnemy = new Random();
+            int EnemyChosen = randEnemy.nextInt(4);
+            String enemy = enemies[EnemyChosen];//we only have one enemy here. You can add more and use random choose one.
             System.out.println("\t# "+enemy+" is appeared! #\n");
 
             while(enemyHealth>0){
@@ -61,7 +62,7 @@ public class Main {
                     break;
                 }
                 else {
-                    //Opps! pressed the wrong button
+                    //Oops! pressed the wrong button
                     System.out.println("Do not panic. Choose again\n");
                 }
             }
@@ -71,6 +72,26 @@ public class Main {
                 //Enemy is defeated
                 System.out.println(" # "+enemy+" was defeated! #");
                 System.out.println("You have "+health+" HP left.");
+                Random randDrop = new Random();
+                int itemDrop = randDrop.nextInt(4);
+                switch(itemDrop) {
+                    case 0:
+                        //nothing was dropped
+                        break;
+                    case 1:
+                        System.out.println(enemy+" dropped a health potion, you consume for 40 hp");
+                        health = health + 40;
+                        System.out.println("you now have "+health+" hp");
+                        break;
+                    case 2:
+                        System.out.println(enemy+" dropped a sword you know have +10 attack!");
+                        break;
+                    case 3:
+                        System.out.println(enemy+" dropped a armour you know have +5 defence!");
+                        break;
+                    default:
+                        break;
+                }
             }
 
             //After defeat one enemy, let user to choose what to do next
